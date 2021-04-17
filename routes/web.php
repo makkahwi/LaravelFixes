@@ -17,4 +17,6 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/updateUser', ['as' => 'updateUser', 'uses' => 'HomeController@updateUser']);
+Route::post('/update', ['as' => 'update', 'uses' => 'HomeController@updateUser']);
+
+Route::post('/delete', ['as' => 'delete', 'uses' => 'HomeController@deleteUser']);

@@ -31,10 +31,17 @@ class HomeController extends Controller
     {
         $user = User::where('email', $request['email']);
 
-        $user->update(['name' => $request['name'], 'email' => $request['email']]);
+        $user->update(['name' => $request['name']]);
 
         return redirect(route('home'));
     }
 
+    public function deleteUser(request $request)
+    {
+        $user = User::where('email', $request['email']);
 
+        $user->delete();
+
+        return redirect(route('home'));
+    }
 }

@@ -16,7 +16,7 @@
 
                     {{ __('You are logged in!') }}
 
-                    <form method="post" action="{{ route('updateUser') }}">
+                    <form method="post" action="{{ route('update') }}">
                         @csrf
 
                         <h4 class="text-center py-4">You may change your details below</h4>
@@ -24,8 +24,10 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
+                            <input hidden id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
+
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" required>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -35,23 +37,9 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-success">
                                     {{ __('Submit') }}
                                 </button>
                             </div>
@@ -60,23 +48,41 @@
                 </div>
 
                 <div class="card-tail">
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="POST" action="{{ route('password.email') }}">
+                                @csrf
 
-                        <input hidden id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
+                                <input hidden id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email" autofocus>
 
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
 
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Email Link to Reset Password') }}
-                            </button>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Email Link to Reset Password') }}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+
+                        <div class="col-md-6">
+                            <div class="text-left">
+                                <form method="POST" action="{{ route('delete') }}">
+                                    @csrf
+                                
+                                    <input hidden id="email" type="email" name="email" value="{{ Auth::user()->email }}" required>
+
+                                    <button type="submit" class="btn btn-danger">
+                                        {{ __('Delete Your Account') }}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
