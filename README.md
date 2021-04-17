@@ -3,4 +3,4 @@
 ### Run php artisan migrate:refresh --seed (seed must contain 10 random user) / DONE
 ### Fix Login. / DONE
 ### Fix Registration. / DONE
-### Create a CRUD page of a user.
+### Create a CRUD page of a user. / DONE
